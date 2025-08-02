@@ -29,5 +29,27 @@ class TemperatureConverter:
         """Convert Celsius to Kelvin"""
         return celsius + 273.15
 
+    @staticmethod
+    def fahrenheit_to_celsius(fahrenheit: float) -> float:
+        """Convert Fahrenheit to Celsius"""
+        return (fahrenheit - 32) * 5/9
+
+    @staticmethod
+    def fahrenheit_to_kelvin(fahrenheit: float) -> float:
+        """Convert Fahrenheit to Kelvin"""
+        celsius = TemperatureConverter.fahrenheit_to_celsius(fahrenheit)
+        return TemperatureConverter.celsius_to_kelvin(celsius)
+
+    @staticmethod
+    def kelvin_to_celsius(kelvin: float) -> float:
+        """Convert Kelvin to Celsius"""
+        return kelvin - 273.15
+
+    @staticmethod
+    def kelvin_to_fahrenheit(kelvin: float) -> float:
+        """Convert Kelvin to Fahrenheit"""
+        celsius = TemperatureConverter.kelvin_to_celsius(kelvin)
+        return TemperatureConverter.celsius_to_fahrenheit(celsius)
+
 if __name__ == "__main__":
     print("Temperature Converter - Initial Setup")
