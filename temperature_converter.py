@@ -17,8 +17,50 @@ from typing import Dict, Tuple, Optional
 class TemperatureConverter:
     """
     A comprehensive temperature conversion class supporting Celsius, Fahrenheit, and Kelvin.
+    Includes validation for absolute zero limits and error handling.
     """
     
+    # Absolute zero constants for validation
+    ABSOLUTE_ZERO = {
+        'C': -273.15,  # Celsius
+        'F': -459.67,  # Fahrenheit  
+        'K': 0.0       # Kelvin
+    }
+    
+    UNIT_NAMES = {
+        'C': 'Celsius',
+        'F': 'Fahrenheit', 
+        'K': 'Kelvin'
+    }
+    
+    UNIT_SYMBOLS = {
+        'C': '°C',
+        'F': '°F',
+        'K': 'K'
+    }
+
+    @classmethod
+    def validate_temperature(cls, temperature: float, unit: str) -> Tuple[bool, str]:
+        """
+        Validate temperature against absolute zero limits
+        
+        Args:
+            temperature: Temperature value to validate
+            unit: Unit of measurement ('C', 'F', 'K')
+            
+        Returns:
+            Tuple of (is_valid, error_message)
+        """
+        unit = unit.upper()
+        if unit not in cls.ABSOLUTE_ZERO:
+            return False, f"Invalid unit '{unit}'. Use C, F, or K."
+        
+        absolute_zero = cls.ABSOLUTE_ZERO[unit]
+        if temperature < absolute_zero:
+            return False, f"Temperature cannot be below absolute zero ({absolute_zero}{cls.UNIT_SYMBOLS[unit]})"
+        
+        return True, ""
+
     @staticmethod
     def celsius_to_fahrenheit(celsius: float) -> float:
         """Convert Celsius to Fahrenheit"""
