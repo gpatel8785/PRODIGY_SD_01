@@ -61,6 +61,47 @@ class TemperatureConverter:
         
         return True, ""
 
+    @classmethod
+    def convert_temperature(cls, temperature: float, from_unit: str) -> Dict[str, float]:
+        """
+        Convert temperature from one unit to all other units
+        
+        Args:
+            temperature: Temperature value to convert
+            from_unit: Original unit ('C', 'F', 'K')
+            
+        Returns:
+            Dictionary with converted temperatures in all units
+        """
+        from_unit = from_unit.upper()
+        
+        # Validate input
+        is_valid, error_msg = cls.validate_temperature(temperature, from_unit)
+        if not is_valid:
+            raise ValueError(error_msg)
+        
+        # Convert to all units
+        if from_unit == 'C':
+            celsius = temperature
+            fahrenheit = cls.celsius_to_fahrenheit(temperature)
+            kelvin = cls.celsius_to_kelvin(temperature)
+        elif from_unit == 'F':
+            fahrenheit = temperature
+            celsius = cls.fahrenheit_to_celsius(temperature)
+            kelvin = cls.fahrenheit_to_kelvin(temperature)
+        elif from_unit == 'K':
+            kelvin = temperature
+            celsius = cls.kelvin_to_celsius(temperature)
+            fahrenheit = cls.kelvin_to_fahrenheit(temperature)
+        else:
+            raise ValueError(f"Invalid unit '{from_unit}'. Use C, F, or K.")
+        
+        return {
+            'celsius': celsius,
+            'fahrenheit': fahrenheit,
+            'kelvin': kelvin
+        }
+
     @staticmethod
     def celsius_to_fahrenheit(celsius: float) -> float:
         """Convert Celsius to Fahrenheit"""
