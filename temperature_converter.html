@@ -85,6 +85,55 @@
                 <span class="bg-white/20 px-3 py-1 rounded-full">Prodigy InfoTech - Task 01</span>
             </div>
         </div>
+
+        <!-- Main Converter -->
+        <div class="max-w-4xl mx-auto">
+            <div class="glass-effect rounded-2xl p-8 mb-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Input Section -->
+                    <div class="space-y-6">
+                        <h2 class="text-2xl font-semibold text-white mb-6">Input Temperature</h2>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-white/90 text-sm font-medium mb-2">Temperature Value</label>
+                                <input type="number"
+                                       id="temperatureInput"
+                                       step="0.01"
+                                       class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 input-focus focus:outline-none transition-all"
+                                       placeholder="Enter temperature value">
+                            </div>
+
+                            <div>
+                                <label class="block text-white/90 text-sm font-medium mb-2">From Unit</label>
+                                <select id="fromUnit"
+                                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white input-focus focus:outline-none transition-all">
+                                    <option value="celsius" class="bg-gray-800">Celsius (°C)</option>
+                                    <option value="fahrenheit" class="bg-gray-800">Fahrenheit (°F)</option>
+                                    <option value="kelvin" class="bg-gray-800">Kelvin (K)</option>
+                                </select>
+                            </div>
+
+                            <button onclick="convertTemperature()"
+                                    class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300">
+                                🌡️ Convert Temperature
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div class="space-y-6">
+                        <h2 class="text-2xl font-semibold text-white mb-6">Conversion Results</h2>
+                        <div id="resultsContainer" class="space-y-4">
+                            <div class="text-center text-white/60 py-8">
+                                <div class="text-6xl mb-4">🌡️</div>
+                                <p>Enter a temperature value to see conversions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
