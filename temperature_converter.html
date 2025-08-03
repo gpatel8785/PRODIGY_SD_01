@@ -4,7 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temperature Converter - Prodigy InfoTech</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        let conversionHistory = [];
+
+        // Temperature conversion functions
+        function celsiusToFahrenheit(celsius) {
+            return (celsius * 9 / 5) + 32;
+        }
+
+        function celsiusToKelvin(celsius) {
+            return celsius + 273.15;
+        }
+
+        function fahrenheitToCelsius(fahrenheit) {
+            return (fahrenheit - 32) * 5 / 9;
+        }
+
+        function fahrenheitToKelvin(fahrenheit) {
+            return celsiusToKelvin(fahrenheitToCelsius(fahrenheit));
+        }
+
+        function kelvinToCelsius(kelvin) {
+            return kelvin - 273.15;
+        }
+
+        function kelvinToFahrenheit(kelvin) {
+            return celsiusToFahrenheit(kelvinToCelsius(kelvin));
+        }
+
+        // Validation functions
+        function validateTemperature(value, unit) {
+            const absoluteZero = {
+                celsius: -273.15,
+                fahrenheit: -459.67,
+                kelvin: 0
+            };
+
+            if (value < absoluteZero[unit]) {
+                return {
+                    valid: false,
+                    message: `Temperature cannot be below absolute zero (${absoluteZero[unit]}° ${unit.charAt(0).toUpperCase()})`
+                };
+            }
+
+            return { valid: true };
+        }
+    </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
