@@ -52,6 +52,24 @@
                 transform: translateY(0);
             }
         }
+
+        .thermometer-icon {
+            background: linear-gradient(180deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+            border-radius: 50px;
+            position: relative;
+        }
+
+            .thermometer-icon::before {
+                content: '';
+                position: absolute;
+                top: 10%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 2px;
+                height: 60%;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 1px;
+            }
     </style>
 </head>
 <body class="gradient-bg min-h-screen">
