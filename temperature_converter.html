@@ -118,6 +118,70 @@
             `;
         }
 
+        function addToHistory(originalValue, originalUnit, celsius, fahrenheit, kelvin) {
+            const timestamp = new Date().toLocaleTimeString();
+            const unitSymbols = {
+                celsius: '°C',
+                fahrenheit: '°F',
+                kelvin: 'K'
+            };
+
+            const historyItem = {
+                timestamp,
+                original: `${originalValue}${unitSymbols[originalUnit]}`,
+                celsius: `${celsius.toFixed(2)}°C`,
+                fahrenheit: `${fahrenheit.toFixed(2)}°F`,
+                kelvin: `${kelvin.toFixed(2)}K`
+            };
+
+            conversionHistory.unshift(historyItem);
+            if (conversionHistory.length > 5) {
+                conversionHistory.pop();
+            }
+
+            updateHistoryDisplay();
+        }
+
+        function updateHistoryDisplay() {
+            const container = document.getElementById('historyContainer');
+
+            if (conversionHistory.length === 0) {
+                container.innerHTML = '<p class="text-white/60 text-center py-4">No conversions yet</p>';
+                return;
+            }
+
+            container.innerHTML = conversionHistory.map(item => `
+                <div class="bg-white/5 rounded-lg p-3 border border-white/10">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="text-white font-medium mb-1">Input: ${item.original}</div>
+                            <div class="text-sm text-white/70 space-x-4">
+                                <span>${item.celsius}</span>
+                                <span>${item.fahrenheit}</span>
+                                <span>${item.kelvin}</span>
+                            </div>
+                        </div>
+                        <div class="text-xs text-white/50">${item.timestamp}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function clearHistory() {
+            conversionHistory = [];
+            updateHistoryDisplay();
+        }
+
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').classList.remove('hidden');
+            document.getElementById('temperatureCards').style.display = 'none';
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
