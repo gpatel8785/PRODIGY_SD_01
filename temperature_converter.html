@@ -148,19 +148,50 @@
                         </div>
                     </div>
 
-                    <!-- Results Section -->
-                    <div class="space-y-6">
-                        <h2 class="text-2xl font-semibold text-white mb-6">Conversion Results</h2>
-                        <div id="resultsContainer" class="space-y-4">
-                            <div class="text-center text-white/60 py-8">
-                                <div class="text-6xl mb-4">🌡️</div>
-                                <p>Enter a temperature value to see conversions</p>
+                    <!-- Error Display -->
+                    <div id="errorMessage" class="hidden bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-6">
+                        <div class="flex items-center">
+                            <span class="text-2xl mr-3">⚠️</span>
+                            <div>
+                                <h4 class="text-red-200 font-semibold">Invalid Temperature</h4>
+                                <p id="errorText" class="text-red-300 text-sm"></p>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Conversion History -->
+                    <div class="glass-effect rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-white">Recent Conversions</h3>
+                            <button onclick="clearHistory()"
+                                    class="text-white/60 hover:text-white text-sm transition-colors">
+                                Clear History
+                            </button>
+                        </div>
+                        <div id="historyContainer" class="space-y-2">
+                            <p class="text-white/60 text-center py-4">No conversions yet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center mt-12 text-white/60">
+                    <p>© 2024 Prodigy InfoTech Software Development Internship</p>
+                    <p class="text-sm mt-1">Task-01: Temperature Conversion Program</p>
+                </div>
+
+                <!-- Results Section -->
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-semibold text-white mb-6">Conversion Results</h2>
+                    <div id="resultsContainer" class="space-y-4">
+                        <div class="text-center text-white/60 py-8">
+                            <div class="text-6xl mb-4">🌡️</div>
+                            <p>Enter a temperature value to see conversions</p>
                         </div>
                     </div>
                 </div>
             </div>
+            </div>
         </div>
-    </div>
 </body>
 </html>
