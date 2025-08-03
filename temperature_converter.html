@@ -121,6 +121,33 @@
                         </div>
                     </div>
 
+                    <!-- Temperature Cards -->
+                    <div id="temperatureCards" class="grid md:grid-cols-3 gap-6 mb-8" style="display: none;">
+                        <!-- Celsius Card -->
+                        <div class="temperature-card glass-effect rounded-xl p-6 text-center">
+                            <div class="text-4xl mb-3">❄️</div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Celsius</h3>
+                            <div id="celsiusResult" class="text-3xl font-bold text-blue-300 mb-2">--</div>
+                            <p class="text-white/60 text-sm">Freezing: 0°C | Boiling: 100°C</p>
+                        </div>
+
+                        <!-- Fahrenheit Card -->
+                        <div class="temperature-card glass-effect rounded-xl p-6 text-center">
+                            <div class="text-4xl mb-3">🌡️</div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Fahrenheit</h3>
+                            <div id="fahrenheitResult" class="text-3xl font-bold text-orange-300 mb-2">--</div>
+                            <p class="text-white/60 text-sm">Freezing: 32°F | Boiling: 212°F</p>
+                        </div>
+
+                        <!-- Kelvin Card -->
+                        <div class="temperature-card glass-effect rounded-xl p-6 text-center">
+                            <div class="text-4xl mb-3">🔬</div>
+                            <h3 class="text-xl font-semibold text-white mb-2">Kelvin</h3>
+                            <div id="kelvinResult" class="text-3xl font-bold text-green-300 mb-2">--</div>
+                            <p class="text-white/60 text-sm">Absolute Zero: 0K | Water Boils: 373.15K</p>
+                        </div>
+                    </div>
+
                     <!-- Results Section -->
                     <div class="space-y-6">
                         <h2 class="text-2xl font-semibold text-white mb-6">Conversion Results</h2>
