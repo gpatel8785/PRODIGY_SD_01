@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 PRODIGY_SD_01 - Temperature Conversion Program
 Prodigy InfoTech Software Development Internship - Task 01
@@ -34,8 +34,8 @@ class TemperatureConverter:
     }
     
     UNIT_SYMBOLS = {
-        'C': '�C',
-        'F': '�F',
+        'C': '°C',
+        'F': '°F',
         'K': 'K'
     }
 
@@ -105,7 +105,7 @@ class TemperatureConverter:
 def display_header():
     """Display program header with task information"""
     print("=" * 60)
-    print("???  TEMPERATURE CONVERSION PROGRAM")
+    print("🌡️  TEMPERATURE CONVERSION PROGRAM")
     print("   Prodigy InfoTech Software Development Internship")
     print("   Task-01: Temperature Conversion Program")
     print("=" * 60)
@@ -113,9 +113,9 @@ def display_header():
 
 def display_menu():
     """Display unit selection menu"""
-    print("?? Available Temperature Units:")
-    print("   [C] Celsius (�C)")
-    print("   [F] Fahrenheit (�F)")  
+    print("📋 Available Temperature Units:")
+    print("   [C] Celsius (°C)")
+    print("   [F] Fahrenheit (°F)")  
     print("   [K] Kelvin (K)")
     print()
 
@@ -129,26 +129,61 @@ def get_temperature_input() -> Tuple[float, str]:
     while True:
         try:
             # Get temperature value
-            temp_input = input("???  Enter temperature value: ").strip()
+            temp_input = input("🌡️  Enter temperature value: ").strip()
             if not temp_input:
-                print("? Please enter a temperature value.")
+                print("❌ Please enter a temperature value.")
                 continue
                 
             temperature = float(temp_input)
             
             # Get unit
             display_menu()
-            unit_input = input("?? Enter unit (C/F/K): ").strip().upper()
+            unit_input = input("📐 Enter unit (C/F/K): ").strip().upper()
             
             if unit_input not in ['C', 'F', 'K']:
-                print("? Invalid unit. Please enter C, F, or K.")
+                print("❌ Invalid unit. Please enter C, F, or K.")
                 continue
                 
             return temperature, unit_input
             
         except ValueError:
-            print("? Invalid temperature value. Please enter a number.")
+            print("❌ Invalid temperature value. Please enter a number.")
             continue
+
+def display_results(temperature: float, from_unit: str, results: Dict[str, float]):
+    """
+    Display conversion results in a formatted manner
+    
+    Args:
+        temperature: Original temperature value
+        from_unit: Original unit
+        results: Dictionary with converted temperatures
+    """
+    converter = TemperatureConverter()
+    
+    print("\n" + "=" * 50)
+    print("🎯 CONVERSION RESULTS")
+    print("=" * 50)
+    
+    # Display input
+    unit_symbol = converter.UNIT_SYMBOLS[from_unit]
+    unit_name = converter.UNIT_NAMES[from_unit]
+    print(f"📥 Input: {temperature:.2f}{unit_symbol} ({unit_name})")
+    print()
+    
+    # Display all conversions
+    print("📤 Converted Values:")
+    print(f"   🧊 Celsius:    {results['celsius']:.2f}°C")
+    print(f"   🌡️  Fahrenheit: {results['fahrenheit']:.2f}°F")
+    print(f"   🔬 Kelvin:     {results['kelvin']:.2f}K")
+    print()
+    
+    # Display reference points
+    print("📚 Reference Points:")
+    print(f"   • Water Freezing: 0°C = 32°F = 273.15K")
+    print(f"   • Water Boiling:  100°C = 212°F = 373.15K")
+    print(f"   • Absolute Zero:  -273.15°C = -459.67°F = 0K")
+    print("=" * 50)
     
     @staticmethod
     def celsius_to_fahrenheit(celsius: float) -> float:
