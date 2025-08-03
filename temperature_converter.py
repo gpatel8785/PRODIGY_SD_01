@@ -61,6 +61,7 @@ class TemperatureConverter:
         
         return True, ""
 
+
     @classmethod
     def convert_temperature(cls, temperature: float, from_unit: str) -> Dict[str, float]:
         """
@@ -101,7 +102,54 @@ class TemperatureConverter:
             'fahrenheit': fahrenheit,
             'kelvin': kelvin
         }
+def display_header():
+    """Display program header with task information"""
+    print("=" * 60)
+    print("???  TEMPERATURE CONVERSION PROGRAM")
+    print("   Prodigy InfoTech Software Development Internship")
+    print("   Task-01: Temperature Conversion Program")
+    print("=" * 60)
+    print()
 
+def display_menu():
+    """Display unit selection menu"""
+    print("?? Available Temperature Units:")
+    print("   [C] Celsius (°C)")
+    print("   [F] Fahrenheit (°F)")  
+    print("   [K] Kelvin (K)")
+    print()
+
+def get_temperature_input() -> Tuple[float, str]:
+    """
+    Get temperature value and unit from user input
+    
+    Returns:
+        Tuple of (temperature_value, unit)
+    """
+    while True:
+        try:
+            # Get temperature value
+            temp_input = input("???  Enter temperature value: ").strip()
+            if not temp_input:
+                print("? Please enter a temperature value.")
+                continue
+                
+            temperature = float(temp_input)
+            
+            # Get unit
+            display_menu()
+            unit_input = input("?? Enter unit (C/F/K): ").strip().upper()
+            
+            if unit_input not in ['C', 'F', 'K']:
+                print("? Invalid unit. Please enter C, F, or K.")
+                continue
+                
+            return temperature, unit_input
+            
+        except ValueError:
+            print("? Invalid temperature value. Please enter a number.")
+            continue
+    
     @staticmethod
     def celsius_to_fahrenheit(celsius: float) -> float:
         """Convert Celsius to Fahrenheit"""
@@ -136,3 +184,4 @@ class TemperatureConverter:
 
 if __name__ == "__main__":
     print("Temperature Converter - Initial Setup")
+
