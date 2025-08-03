@@ -39,6 +39,38 @@ class TemperatureConverter:
         'K': 'K'
     }
 
+    @staticmethod
+    def celsius_to_fahrenheit(celsius: float) -> float:
+        """Convert Celsius to Fahrenheit"""
+        return (celsius * 9/5) + 32
+
+    @staticmethod
+    def celsius_to_kelvin(celsius: float) -> float:
+        """Convert Celsius to Kelvin"""
+        return celsius + 273.15
+
+    @staticmethod
+    def fahrenheit_to_celsius(fahrenheit: float) -> float:
+        """Convert Fahrenheit to Celsius"""
+        return (fahrenheit - 32) * 5/9
+
+    @staticmethod
+    def fahrenheit_to_kelvin(fahrenheit: float) -> float:
+        """Convert Fahrenheit to Kelvin"""
+        celsius = TemperatureConverter.fahrenheit_to_celsius(fahrenheit)
+        return TemperatureConverter.celsius_to_kelvin(celsius)
+
+    @staticmethod
+    def kelvin_to_celsius(kelvin: float) -> float:
+        """Convert Kelvin to Celsius"""
+        return kelvin - 273.15
+
+    @staticmethod
+    def kelvin_to_fahrenheit(kelvin: float) -> float:
+        """Convert Kelvin to Fahrenheit"""
+        celsius = TemperatureConverter.kelvin_to_celsius(kelvin)
+        return TemperatureConverter.celsius_to_fahrenheit(celsius)
+
     @classmethod
     def validate_temperature(cls, temperature: float, unit: str) -> Tuple[bool, str]:
         """
@@ -60,7 +92,6 @@ class TemperatureConverter:
             return False, f"Temperature cannot be below absolute zero ({absolute_zero}{cls.UNIT_SYMBOLS[unit]})"
         
         return True, ""
-
 
     @classmethod
     def convert_temperature(cls, temperature: float, from_unit: str) -> Dict[str, float]:
@@ -102,6 +133,7 @@ class TemperatureConverter:
             'fahrenheit': fahrenheit,
             'kelvin': kelvin
         }
+
 def display_header():
     """Display program header with task information"""
     print("=" * 60)
@@ -184,39 +216,94 @@ def display_results(temperature: float, from_unit: str, results: Dict[str, float
     print(f"   • Water Boiling:  100°C = 212°F = 373.15K")
     print(f"   • Absolute Zero:  -273.15°C = -459.67°F = 0K")
     print("=" * 50)
+
+def main():
+    """Main program function"""
+    display_header()
     
-    @staticmethod
-    def celsius_to_fahrenheit(celsius: float) -> float:
-        """Convert Celsius to Fahrenheit"""
-        return (celsius * 9/5) + 32
+    print("Welcome to the Temperature Conversion Program!")
+    print("This program converts temperatures between Celsius, Fahrenheit, and Kelvin.")
+    print()
+    
+    while True:
+        try:
+            # Get user input
+            temperature, from_unit = get_temperature_input()
+            
+            # Perform conversion
+            converter = TemperatureConverter()
+            results = converter.convert_temperature(temperature, from_unit)
+            
+            # Display results
+            display_results(temperature, from_unit, results)
+            
+            # Ask for another conversion
+            print()
+            while True:
+                continue_choice = input("🔄 Would you like to convert another temperature? (y/n): ").strip().lower()
+                if continue_choice in ['y', 'yes']:
+                    print("\n" + "-" * 60 + "\n")
+                    break
+                elif continue_choice in ['n', 'no']:
+                    print("\n🎉 Thank you for using the Temperature Conversion Program!")
+                    print("   Prodigy InfoTech Software Development Internship - Task 01 Complete")
+                    return
+                else:
+                    print("❌ Please enter 'y' for yes or 'n' for no.")
+                    
+        except ValueError as e:
+            print(f"\n❌ Error: {e}")
+            print("Please try again with a valid temperature value.\n")
+            
+        except KeyboardInterrupt:
+            print("\n\n👋 Program interrupted by user. Goodbye!")
+            sys.exit(0)
+            
+        except Exception as e:
+            print(f"\n❌ An unexpected error occurred: {e}")
+            print("Please try again.\n")
 
-    @staticmethod
-    def celsius_to_kelvin(celsius: float) -> float:
-        """Convert Celsius to Kelvin"""
-        return celsius + 273.15
-
-    @staticmethod
-    def fahrenheit_to_celsius(fahrenheit: float) -> float:
-        """Convert Fahrenheit to Celsius"""
-        return (fahrenheit - 32) * 5/9
-
-    @staticmethod
-    def fahrenheit_to_kelvin(fahrenheit: float) -> float:
-        """Convert Fahrenheit to Kelvin"""
-        celsius = TemperatureConverter.fahrenheit_to_celsius(fahrenheit)
-        return TemperatureConverter.celsius_to_kelvin(celsius)
-
-    @staticmethod
-    def kelvin_to_celsius(kelvin: float) -> float:
-        """Convert Kelvin to Celsius"""
-        return kelvin - 273.15
-
-    @staticmethod
-    def kelvin_to_fahrenheit(kelvin: float) -> float:
-        """Convert Kelvin to Fahrenheit"""
-        celsius = TemperatureConverter.kelvin_to_celsius(kelvin)
-        return TemperatureConverter.celsius_to_fahrenheit(celsius)
+# API-like functions for web integration (bonus feature)
+def convert_api(temperature: float, from_unit: str) -> Dict:
+    """
+    API-style function for web integration
+    Returns JSON-serializable dictionary
+    """
+    try:
+        converter = TemperatureConverter()
+        results = converter.convert_temperature(temperature, from_unit)
+        
+        return {
+            'success': True,
+            'input': {
+                'temperature': temperature,
+                'unit': from_unit,
+                'unit_name': converter.UNIT_NAMES[from_unit.upper()],
+                'unit_symbol': converter.UNIT_SYMBOLS[from_unit.upper()]
+            },
+            'results': {
+                'celsius': round(results['celsius'], 2),
+                'fahrenheit': round(results['fahrenheit'], 2), 
+                'kelvin': round(results['kelvin'], 2)
+            },
+            'formatted_results': {
+                'celsius': f"{results['celsius']:.2f}°C",
+                'fahrenheit': f"{results['fahrenheit']:.2f}°F",
+                'kelvin': f"{results['kelvin']:.2f}K"
+            }
+        }
+    except ValueError as e:
+        return {
+            'success': False,
+            'error': str(e),
+            'error_type': 'validation_error'
+        }
+    except Exception as e:
+        return {
+            'success': False,
+            'error': f"Conversion failed: {str(e)}",
+            'error_type': 'conversion_error'
+        }
 
 if __name__ == "__main__":
-    print("Temperature Converter - Initial Setup")
-
+    main()
